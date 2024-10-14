@@ -10,6 +10,9 @@ target("clip")
   add_deps("lua54")
   add_links('user32')
   set_filename("clip.dll")
+  if is_plat("mingw") then
+    add_shflags("-static-libgcc", "-static-libstdc++")
+  end
   after_build(function(target)
     os.cp(path.join(target:targetdir(), "clip.dll"), "$(projectdir)")
   end)
